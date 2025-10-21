@@ -1,21 +1,13 @@
-const express = require("express");
-const cors = require("cors");
-const ticketRoutes = require("./src/routes/ticketRoutes");
-const userRoutes = require("./src/routes/userRoutes");
+const express = require('express');
 const app = express();
-app.use(cors());
-const PORT = 3000;
+const sequelize = require('./src/config/sequelize');
+
+const usuarioRoutes = require('./src/routes/usuarioRoutes');
 
 app.use(express.json());
+app.use('/usuarios', usuarioRoutes);
 
-app.get("/", (req, res) => {
-  res.send("API do Sistema de Help Desk está no ar!");
-});
-
-app.use("/api", ticketRoutes);
-
-app.use("/api", userRoutes);
-
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+sequelize.sync().then(() => {
+  console.log('Banco sincronizado');
+  app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
 });
