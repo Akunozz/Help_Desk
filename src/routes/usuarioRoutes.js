@@ -5,7 +5,8 @@ const {
   listarUsuarios,
   buscarUsuario,
   atualizarUsuario,
-  excluirUsuario
+  excluirUsuario,
+  loginUsuario
 } = require('../controllers/usuarioController');
 
 // Criar novo usuário
@@ -22,5 +23,8 @@ router.put('/:id', atualizarUsuario);
 
 // Excluir usuário por ID
 router.delete('/:id', excluirUsuario);
+
+// Login do usuário
+router.post('/login', loginUsuario);
 
 module.exports = router;

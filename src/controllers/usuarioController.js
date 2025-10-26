@@ -63,10 +63,41 @@ const excluirUsuario = async (req, res) => {
   }
 };
 
+// Login do usuário
+const loginUsuario = async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+    
+    if (!email || !senha) {
+      return res.status(400).json({ erro: 'Email e senha são obrigatórios' });
+    }
+
+    const usuario = await Usuario.findOne({ where: { email } });
+    
+    if (!usuario) {
+      return res.status(404).json({ erro: 'Usuário não encontrado' });
+    }
+
+    if (usuario.senha !== senha) {
+      return res.status(401).json({ erro: 'Senha incorreta' });
+    }
+
+    // Login bem-sucedido - retorna dados do usuário (sem a senha)
+    const { senha: _, ...usuarioSemSenha } = usuario.toJSON();
+    res.json({ 
+      mensagem: 'Login realizado com sucesso', 
+      usuario: usuarioSemSenha 
+    });
+  } catch (error) {
+    res.status(500).json({ erro: 'Erro ao fazer login', detalhes: error.message });
+  }
+};
+
 module.exports = {
   criarUsuario,
   listarUsuarios,
   buscarUsuario,
   atualizarUsuario,
-  excluirUsuario
+  excluirUsuario,
+  loginUsuario
 };

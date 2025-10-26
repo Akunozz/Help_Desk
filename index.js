@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const sequelize = require('./src/config/sequelize');
 
@@ -10,6 +11,7 @@ const instanciaRoutes = require('./src/routes/instanciaRoutes');
 const comentarioRoutes = require('./src/routes/comentarioRoutes');
 const historicoRoutes = require('./src/routes/historicoRoutes');
 
+app.use(cors()); // Habilita CORS para todas as rotas
 app.use(express.json());
 app.use('/usuarios', usuarioRoutes);
 app.use('/templates', templateRoutes);
