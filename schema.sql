@@ -35,6 +35,8 @@ CREATE TABLE transicoes (
     etapa_origem_id INT NOT NULL,
     etapa_destino_id INT NOT NULL,
     nome_acao VARCHAR(100) NOT NULL,
+    template_id INT NOT NULL,
+    FOREIGN KEY (template_id) REFERENCES processo_templates(id) ON DELETE CASCADE,
     CHECK (etapa_origem_id <> etapa_destino_id),
     FOREIGN KEY (etapa_origem_id) REFERENCES etapas(id) ON DELETE CASCADE,
     FOREIGN KEY (etapa_destino_id) REFERENCES etapas(id) ON DELETE CASCADE
