@@ -10,6 +10,7 @@ const transicaoRoutes = require('./src/routes/transicaoRoutes');
 const instanciaRoutes = require('./src/routes/instanciaRoutes');
 const comentarioRoutes = require('./src/routes/comentarioRoutes');
 const historicoRoutes = require('./src/routes/historicoRoutes');
+const movimentacaoRoutes = require('./src/routes/movimentacaoRoutes');
 
 app.use(cors()); // Habilita CORS para todas as rotas
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use('/transicoes', transicaoRoutes);
 app.use('/instancias', instanciaRoutes);
 app.use('/comentarios', comentarioRoutes);
 app.use('/historico', historicoRoutes);
+app.use('/movimentacao', movimentacaoRoutes);
 
 sequelize.sync().then(() => {
   console.log('Banco sincronizado');
