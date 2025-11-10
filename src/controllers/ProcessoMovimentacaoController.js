@@ -50,6 +50,9 @@ const movimentarEtapa = async (req, res) => {
     const etapaDestino = await Etapa.findByPk(etapa_destino_id);
     if (!etapaDestino) return res.status(404).json({ erro: 'Etapa destino não encontrada' });
 
+    // Salva a etapa origem antes de atualizar
+    const etapaOrigemId = instancia.etapa_atual_id;
+
     const atualizacoes = {
       etapa_atual_id: etapa_destino_id
     };
@@ -61,10 +64,10 @@ const movimentarEtapa = async (req, res) => {
 
     await instancia.update(atualizacoes);
 
-    // 7. Registra no histórico
+    // 7. Registra no histórico automaticamente
     await Historico.create({
       processo_id,
-      etapa_origem_id: instancia.etapa_atual_id,
+      etapa_origem_id: etapaOrigemId,
       etapa_destino_id,
       usuario_responsavel_id,
       observacao
