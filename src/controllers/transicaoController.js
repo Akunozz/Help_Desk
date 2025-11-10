@@ -2,8 +2,8 @@ const Transicao = require('../models/Transicao');
 
 const criarTransicao = async (req, res) => {
   try {
-    const { nome_acao, etapa_origem_id, etapa_destino_id, template_id } = req.body;
-    const nova = await Transicao.create({ nome_acao, etapa_origem_id, etapa_destino_id, template_id });
+    const { nome_acao, etapa_origem_id, etapa_destino_id } = req.body;
+    const nova = await Transicao.create({ nome_acao, etapa_origem_id, etapa_destino_id });
     res.status(201).json(nova);
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao criar transição', detalhes: error.message });
@@ -31,11 +31,11 @@ const buscarTransicao = async (req, res) => {
 
 const atualizarTransicao = async (req, res) => {
   try {
-    const { nome_acao, etapa_origem_id, etapa_destino_id, template_id } = req.body;
+    const { nome_acao, etapa_origem_id, etapa_destino_id } = req.body;
     const transicao = await Transicao.findByPk(req.params.id);
     if (!transicao) return res.status(404).json({ erro: 'Transição não encontrada' });
 
-    await transicao.update({ nome_acao, etapa_origem_id, etapa_destino_id, template_id });
+    await transicao.update({ nome_acao, etapa_origem_id, etapa_destino_id });
     res.json(transicao);
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao atualizar transição' });

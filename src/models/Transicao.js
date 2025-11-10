@@ -13,10 +13,6 @@ const Transicao = sequelize.define('Transicao', {
   etapa_destino_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-  },
-  template_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
   }
 }, {
   tableName: 'transicoes',

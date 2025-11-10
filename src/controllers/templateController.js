@@ -54,10 +54,31 @@ const excluirTemplate = async (req, res) => {
   }
 };
 
+
+const atualizarEtapaInicial = async (req, res) => {
+  try {
+    const { etapa_inicial_id } = req.body;
+    if (etapa_inicial_id === undefined) {
+      return res.status(400).json({ erro: 'etapa_inicial_id e obrigatorio' });
+    }
+
+    const template = await Template.findByPk(req.params.id);
+    if (!template) return res.status(404).json({ erro: 'Template nao encontrado' });
+
+    template.etapa_inicial_id = etapa_inicial_id;
+    await template.save();
+
+    res.json(template);
+  } catch (error) {
+    res.status(500).json({ erro: 'Erro ao atualizar etapa_inicial_id', detalhes: error.message });
+  }
+};
+
 module.exports = {
   criarTemplate,
   listarTemplates,
   buscarTemplate,
   atualizarTemplate,
-  excluirTemplate
+  excluirTemplate,
+  atualizarEtapaInicial
 };
