@@ -1,6 +1,9 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
+// Importa o model de Template
+const ProcessoTemplate = require('./ProcessoTemplate');
+
 const Etapa = sequelize.define('Etapa', {
   nome: {
     type: DataTypes.STRING,
@@ -17,5 +20,7 @@ const Etapa = sequelize.define('Etapa', {
   tableName: 'etapas',
   timestamps: false
 });
+
+Etapa.belongsTo(ProcessoTemplate, { foreignKey: 'template_id' });
 
 module.exports = Etapa;
