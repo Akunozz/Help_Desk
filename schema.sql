@@ -1,3 +1,8 @@
+-- DROP e criação do banco
+DROP DATABASE IF EXISTS workflow_db;
+CREATE DATABASE workflow_db;
+USE workflow_db;
+
 -- Tabela de usuários
 CREATE TABLE usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -84,3 +89,8 @@ CREATE TABLE processo_historico (
     FOREIGN KEY (etapa_destino_id) REFERENCES etapas(id),
     FOREIGN KEY (usuario_responsavel_id) REFERENCES usuarios(id)
 );
+
+-- Inserção dos dois usuários iniciais
+INSERT INTO usuarios (nome, email, senha, tipo_usuario) VALUES
+('Admin', 'admin@admin.com', '123', 'administrador'),
+('Comum', 'comum@comum.com', '123', 'comum');
